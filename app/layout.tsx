@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Syne, Space_Grotesk } from 'next/font/google';
-import '@/styles/globals.css';
+import '../styles/globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { CustomCursor } from '@/components/ui/CustomCursor';
@@ -152,22 +152,19 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Skip navigation for accessibility */}
-        <a href="#main-content" className="skip-nav">
-          Sari la conținut principal
-        </a>
+        {/* Custom cursor (desktop only) */}
+        <CustomCursor />
 
-        {/* Temporarily disabled for debugging */}
-        {/* <CustomCursor /> */}
-        {/* <Navbar /> */}
+        {/* Navigation */}
+        <Navbar />
 
         {/* Main content */}
-        <main id="main-content" className="bg-white">
+        <main id="main-content">
           {children}
         </main>
 
-        {/* Temporarily disabled for debugging */}
-        {/* <Footer /> */}
+        {/* Footer */}
+        <Footer />
       </body>
     </html>
   );
