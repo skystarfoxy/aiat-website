@@ -22,18 +22,22 @@ export default async function HomePage() {
   try {
     const supabase = createClient()
     
-    // Încercăm să luăm conținutul paginii
-    content = await getSiteContent()
-    
-    // Încercăm să luăm ceilalți membri (opțional)
-    const { data: team } = await supabase.from('team_members').select('*').order('order_index', { ascending: true })
-    if (team) teamMembers = team
+    if (supabase) {
+      // Încercăm să luăm conținutul paginii
+      content = await getSiteContent()
+      
+      // Încercăm să luăm ceilalți membri (opțional)
+      const { data: team } = await supabase.from('team_members').select('*').order('order_index', { ascending: true })
+      if (team) teamMembers = team
 
-    const { data: events } = await supabase.from('events').select('*').order('date_value', { ascending: false })
-    if (events) eventsList = events
+      const { data: events } = await supabase.from('events').select('*').order('date_value', { ascending: false })
+      if (events) eventsList = events
 
-    const { data: projects } = await supabase.from('projects').select('*').order('order_index', { ascending: true })
-    if (projects) projectsList = projects
+      const { data: projects } = await supabase.from('projects').select('*').order('order_index', { ascending: true })
+      if (projects) projectsList = projects
+    } else {
+      console.warn('Supabase client unavailable. Using fallbacks.')
+    }
   } catch (err) {
     console.error('Data fetching skipped (expected if no DB connection):', err)
   }

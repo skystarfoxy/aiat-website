@@ -8,7 +8,8 @@ export function createClient() {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Supabase environment variables are missing')
+    console.warn('Supabase core environment variables are missing. Returning null client.')
+    return null as any // Returnăm null (cast la any pentru compatibilitate silențioasă)
   }
 
   return createServerClient(
