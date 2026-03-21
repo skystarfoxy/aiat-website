@@ -14,64 +14,45 @@ import { createClient } from '@/lib/supabase/server'
  * Fetching dynamic content from Supabase.
  */
 export default async function HomePage() {
+  const supabase = createClient()
+  
   let teamMembers: any[] = []
   let eventsList: any[] = []
   let projectsList: any[] = []
   let content: Record<string, string> = {}
 
   try {
-    const supabase = createClient()
+    // Încercăm să luăm conținutul paginii
+    content = await getSiteContent()
     
-    if (supabase) {
-      content = await getSiteContent()
-      
-      // Extragem Echipă
-      const { data: team } = await supabase
-        .from('team_members')
-        .select('*')
-        .order('order_index', { ascending: true })
-      if (team) teamMembers = team
+    // Încercăm să luăm ceilalți membri (opțional)
+    const { data: team } = await supabase.from('team_members').select('*').order('order_index', { ascending: true })
+    if (team) teamMembers = team
 
-      // Extragem Evenimente
-      const { data: events } = await supabase
-        .from('events')
-        .select('*')
-        .order('date_value', { ascending: false })
-      if (events) eventsList = events
+    const { data: events } = await supabase.from('events').select('*').order('date_value', { ascending: false })
+    if (events) eventsList = events
 
-      // Extragem Proiecte
-      const { data: projects } = await supabase
-        .from('projects')
-        .select('*')
-        .order('order_index', { ascending: true })
-      if (projects) projectsList = projects
-    }
+    const { data: projects } = await supabase.from('projects').select('*').order('order_index', { ascending: true })
+    if (projects) projectsList = projects
   } catch (err) {
-    console.error('HomePage data fetching error:', err)
+    console.error('Data fetching skipped (expected if no DB connection):', err)
   }
 
-  // Extragem textele
-  const hero_title = content['hero_title'] || undefined
-  const hero_subtitle = content['hero_subtitle'] || undefined
-  const about_title = content['about_title'] || undefined
-  const about_description = content['about_description'] || undefined
-
+  // Fallbacks pentru texte (dacă baza de date e inaccesibilă)
+  const hero_title = content['hero_title'] || 'Inteligență Artificială pentru Transilvania'
+  const hero_subtitle = content['hero_subtitle'] || 'Cercetare, educație și inovație din inima României spre orizontul european.'
+  const about_title = content['about_title'] || 'Despre AI Transilvania'
+  const about_description = content['about_description'] || 'O organizație dedicată promovării AI în mod responsabil și durabil.'
 
   return (
     <main className="min-h-screen">
-      <Hero 
-        title={hero_title}
-        subtitle={hero_subtitle}
-      />
+      <Hero title={hero_title} subtitle={hero_subtitle} />
       <StatsBar />
-      <About 
-        title={about_title}
-        description={about_description}
-      />
+      <About title={about_title} description={about_description} />
       <Mission />
-      <Projects projects={projectsList || []} />
-      <Events events={eventsList || []} />
-      <Team members={teamMembers || []} />
+      <Projects projects={projectsList} />
+      <Events events={eventsList} />
+      <Team members={teamMembers} />
       <Contact />
     </main>
   );
