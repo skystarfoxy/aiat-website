@@ -14,7 +14,7 @@ const navigation = [
   { name: 'Evenimente', href: '/admin/events', icon: Calendar },
 ]
 
-export default function AdminLayout({ children }: { minHeight?: string, children: React.ReactNode }) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   // Nu afișăm meniul pe pagina de login
