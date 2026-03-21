@@ -5,6 +5,8 @@ export async function getSiteContent() {
   
   try {
     const supabase = createClient()
+    if (!supabase) return contentMap
+
     const { data, error } = await supabase
       .from('site_content')
       .select('section_key, content_value')
