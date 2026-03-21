@@ -14,32 +14,37 @@ import { createClient } from '@/lib/supabase/server'
  * Fetching dynamic content from Supabase.
  */
 export default async function HomePage() {
-  const content = await getSiteContent()
-  const supabase = createClient()
+  let teamMembers = []
+  let eventsList = []
+  let projectsList = []
+  let content: Record<string, string> = {}
 
-  // Extragem textele
-  const hero_title = content['hero_title'] || undefined
-  const hero_subtitle = content['hero_subtitle'] || undefined
-  const about_title = content['about_title'] || undefined
-  const about_description = content['about_description'] || undefined
+  try {
+    content = await getSiteContent()
+    
+    // Extragem Echipă
+    const { data: team } = await supabase
+      .from('team_members')
+      .select('*')
+      .order('order_index', { ascending: true })
+    if (team) teamMembers = team
 
-  // Extragem Echipă
-  const { data: teamMembers } = await supabase
-    .from('team_members')
-    .select('*')
-    .order('order_index', { ascending: true })
+    // Extragem Evenimente
+    const { data: events } = await supabase
+      .from('events')
+      .select('*')
+      .order('date_value', { ascending: false })
+    if (events) eventsList = events
 
-  // Extragem Evenimente
-  const { data: eventsList } = await supabase
-    .from('events')
-    .select('*')
-    .order('date_value', { ascending: false })
-
-  // Extragem Proiecte
-  const { data: projectsList } = await supabase
-    .from('projects')
-    .select('*')
-    .order('order_index', { ascending: true })
+    // Extragem Proiecte
+    const { data: projects } = await supabase
+      .from('projects')
+      .select('*')
+      .order('order_index', { ascending: true })
+    if (projects) projectsList = projects
+  } catch (err) {
+    console.error('HomePage data fetching error:', err)
+  }
 
   return (
     <main className="min-h-screen">
