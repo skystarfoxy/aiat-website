@@ -148,6 +148,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-background text-text-primary font-grotesk antialiased">
+        <style dangerouslySetInnerHTML={{ __html: `body { background: #f00 !important; }` }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
