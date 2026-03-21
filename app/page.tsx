@@ -14,9 +14,10 @@ import { createClient } from '@/lib/supabase/server'
  * Fetching dynamic content from Supabase.
  */
 export default async function HomePage() {
-  let teamMembers = []
-  let eventsList = []
-  let projectsList = []
+  const supabase = createClient()
+  let teamMembers: any[] = []
+  let eventsList: any[] = []
+  let projectsList: any[] = []
   let content: Record<string, string> = {}
 
   try {
@@ -45,6 +46,13 @@ export default async function HomePage() {
   } catch (err) {
     console.error('HomePage data fetching error:', err)
   }
+
+  // Extragem textele
+  const hero_title = content['hero_title'] || undefined
+  const hero_subtitle = content['hero_subtitle'] || undefined
+  const about_title = content['about_title'] || undefined
+  const about_description = content['about_description'] || undefined
+
 
   return (
     <main className="min-h-screen">
