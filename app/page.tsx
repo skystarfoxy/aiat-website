@@ -14,35 +14,33 @@ import { createClient } from '@/lib/supabase/server'
  * Fetching dynamic content from Supabase.
  */
 export default async function HomePage() {
-  const supabase = createClient()
-  let teamMembers: any[] = []
-  let eventsList: any[] = []
-  let projectsList: any[] = []
-  let content: Record<string, string> = {}
-
   try {
-    content = await getSiteContent()
+    const supabase = createClient()
     
-    // Extragem Echipă
-    const { data: team } = await supabase
-      .from('team_members')
-      .select('*')
-      .order('order_index', { ascending: true })
-    if (team) teamMembers = team
+    if (supabase) {
+      content = await getSiteContent()
+      
+      // Extragem Echipă
+      const { data: team } = await supabase
+        .from('team_members')
+        .select('*')
+        .order('order_index', { ascending: true })
+      if (team) teamMembers = team
 
-    // Extragem Evenimente
-    const { data: events } = await supabase
-      .from('events')
-      .select('*')
-      .order('date_value', { ascending: false })
-    if (events) eventsList = events
+      // Extragem Evenimente
+      const { data: events } = await supabase
+        .from('events')
+        .select('*')
+        .order('date_value', { ascending: false })
+      if (events) eventsList = events
 
-    // Extragem Proiecte
-    const { data: projects } = await supabase
-      .from('projects')
-      .select('*')
-      .order('order_index', { ascending: true })
-    if (projects) projectsList = projects
+      // Extragem Proiecte
+      const { data: projects } = await supabase
+        .from('projects')
+        .select('*')
+        .order('order_index', { ascending: true })
+      if (projects) projectsList = projects
+    }
   } catch (err) {
     console.error('HomePage data fetching error:', err)
   }
