@@ -157,19 +157,17 @@ export default function RootLayout({
           Sari la conținut principal
         </a>
 
-        {/* Custom cursor (desktop only) */}
-        <CustomCursor />
-
-        {/* Navigation */}
-        <Navbar />
+        {/* Temporarily disabled for debugging */}
+        {/* <CustomCursor /> */}
+        {/* <Navbar /> */}
 
         {/* Main content */}
-        <main id="main-content">
+        <main id="main-content" className="bg-white">
           {children}
         </main>
 
-        {/* Footer */}
-        <Footer />
+        {/* Temporarily disabled for debugging */}
+        {/* <Footer /> */}
       </body>
     </html>
   );
