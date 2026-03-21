@@ -147,13 +147,11 @@ export default function RootLayout({
       className={`${syne.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
-      <head>
+      <body className="bg-background text-text-primary font-grotesk antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body className="bg-background text-text-primary font-grotesk antialiased">
         {/* Skip navigation for accessibility */}
         <a href="#main-content" className="skip-nav">
           Sari la conținut principal
