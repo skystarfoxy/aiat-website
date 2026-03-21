@@ -27,7 +27,7 @@ export default async function ContentEditorPage() {
           <p className="text-muted text-sm">Nu există texte configurate momentan.</p>
         ) : (
           <div className="space-y-8">
-            {contentItems.map((item) => (
+            {contentItems.map((item: any) => (
               <div key={item.id} className="pb-8 border-b border-border last:border-0 last:pb-0">
                 <form action={updateSiteContent} className="flex flex-col gap-3">
                   <input type="hidden" name="id" value={item.id} />

@@ -47,7 +47,7 @@ export default async function EventsPage() {
           </div>
         ) : (
           <div className="divide-y divide-border">
-            {events.map((event) => (
+            {events.map((event: any) => (
               <div key={event.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-6 gap-4 hover:bg-slate-50 transition-colors">
                 <div className="flex items-start gap-4">
                   <div className={`mt-1 w-2.5 h-2.5 rounded-full shrink-0 ${

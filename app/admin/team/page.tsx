@@ -48,7 +48,7 @@ export default async function TeamPage() {
           </div>
         ) : (
           <div className="divide-y divide-border">
-            {members.map((member) => (
+            {members.map((member: any) => (
               <div key={member.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-6 gap-4 hover:bg-slate-50 transition-colors">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-200 shrink-0 border border-border">

@@ -48,7 +48,7 @@ export default async function ProjectsPage() {
           </div>
         ) : (
           <div className="divide-y divide-border">
-            {projects.map((project) => (
+            {projects.map((project: any) => (
               <div key={project.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-6 gap-4 hover:bg-slate-50 transition-colors">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-slate-100 shrink-0 border border-border flex items-center justify-center">
