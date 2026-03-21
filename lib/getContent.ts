@@ -15,7 +15,7 @@ export async function getSiteContent() {
     }
 
     if (data) {
-      data.forEach((item) => {
+      data.forEach((item: any) => {
         contentMap[item.section_key] = item.content_value
       })
     }

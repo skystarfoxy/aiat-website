@@ -14,6 +14,11 @@ import { createClient } from '@/lib/supabase/server'
  * Fetching dynamic content from Supabase.
  */
 export default async function HomePage() {
+  let teamMembers: any[] = []
+  let eventsList: any[] = []
+  let projectsList: any[] = []
+  let content: Record<string, string> = {}
+
   try {
     const supabase = createClient()
     
