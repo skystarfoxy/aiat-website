@@ -46,7 +46,7 @@ export default async function PostsPage() {
           </div>
         ) : (
           <div className="divide-y divide-border">
-            {posts.map((post) => (
+            {posts.map((post: any) => (
               <div key={post.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-6 gap-4 hover:bg-slate-50 transition-colors">
                 <div>
                   <h3 className="font-syne font-700 text-lg text-text-primary mb-1">{post.title}</h3>

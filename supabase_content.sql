@@ -11,6 +11,11 @@ create table if not exists public.site_content (
 
 alter table public.site_content enable row level security;
 
+-- Sterge politicile dacă există deja
+drop policy if exists "Site content is viewable by everyone." on public.site_content;
+drop policy if exists "Admins can manage site content." on public.site_content;
+
+-- Creează politicile
 create policy "Site content is viewable by everyone." 
   on public.site_content for select using ( true );
 
