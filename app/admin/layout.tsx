@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, FileText, Settings, LogOut, Type, Users, Calendar, Briefcase } from 'lucide-react'
+import { LayoutDashboard, FileText, Settings, LogOut, Type, Users, Calendar, Briefcase, Mail } from 'lucide-react'
 import { logout } from './login/actions'
 
 const navigation = [
@@ -12,6 +12,7 @@ const navigation = [
   { name: 'Echipă', href: '/admin/team', icon: Users },
   { name: 'Proiecte', href: '/admin/projects', icon: Briefcase },
   { name: 'Evenimente', href: '/admin/events', icon: Calendar },
+  { name: 'Mesaje', href: '/admin/messages', icon: Mail },
 ]
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
