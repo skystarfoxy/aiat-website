@@ -8,7 +8,7 @@ export async function login(formData: FormData) {
   const supabase = createClient()
 
   if (!supabase) {
-    redirect('/admin/login?error=Supabase not configured')
+    redirect('/admin/login?error=Variabilele de mediu Supabase lipsesc. Configurați-le în panoul Hostinger.')
   }
 
   const data = {
