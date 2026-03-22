@@ -11,12 +11,13 @@ const partnershipTypes = [
     border: 'border-blue-500/20',
   },
   {
-    title: 'Partener Corporatist',
+    title: 'Partener Corporate',
     description: 'Sponsorizare, mentorat, acces la talent AI și networking cu comunitatea noastră în creștere.',
     color: 'text-accent',
     bg: 'bg-accent/10',
     border: 'border-accent/20',
   },
+
   {
     title: 'Partener Instituțional',
     description: 'Colaborare pentru politici publice, proiecte europene și programe educative în AI.',
@@ -124,7 +125,7 @@ export function Partners() {
             <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent" />
             <div className="relative">
               <h3 className="font-syne font-700 text-text-primary text-2xl mb-3">
-                Deveniți partener
+                Devino partener
               </h3>
               <p className="text-text-secondary font-grotesk mb-6 max-w-lg mx-auto">
                 Construiți alături de noi ecosistemul AI din Transilvania și din România.

@@ -90,7 +90,7 @@ export function About({ title, description }: { title?: string, description?: st
 
             <h3 className="font-syne font-700 text-2xl text-text-primary mb-4 leading-tight">
               Din inima Transilvaniei,<br />
-              spre horizont European
+              spre orizontul european
             </h3>
 
             <p className="text-text-secondary font-grotesk leading-relaxed mb-6">

@@ -71,7 +71,7 @@ export function Hero({ title, subtitle }: { title?: string, subtitle?: string })
             className="font-syne w-full sm:w-auto px-8 py-3.5 text-base shadow-lg shadow-primary/25"
             icon={<ArrowRight size={18} />}
           >
-            Află Mai Multe
+            Află mai multe
           </Button>
         </div>
 

@@ -46,7 +46,7 @@ export function Events({ events }: { events?: any[] }) {
                 Activitate
               </span>
               <h2 className="font-syne font-800 text-4xl sm:text-5xl text-text-primary mb-6">
-                Timeline
+                Cronologie
               </h2>
               <p className="font-grotesk text-lg text-text-secondary leading-relaxed mb-10">
                 Urmărește parcursul asociației și descoperă activitățile prin care aducem inteligența artificială mai aproape de comunitate.

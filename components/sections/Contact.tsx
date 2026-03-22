@@ -105,7 +105,7 @@ export function Contact() {
           </h2>
           <p className="text-text-secondary font-grotesk max-w-2xl mx-auto text-lg leading-relaxed">
             Vrei să devii membru, să propui o colaborare sau să afli mai multe despre asociația noastră?
-            Scriem-ne — răspundem în max. 48 de ore.
+            Scrie-ne — răspundem în max. 48 de ore.
           </p>
         </SectionReveal>
 
@@ -235,7 +235,7 @@ export function Contact() {
                         name="message"
                         value={form.message}
                         onChange={handleChange}
-                        placeholder="Descrie pe scurt cum potem colabora sau ce informații cauți..."
+                        placeholder="Descrie pe scurt cum putem colabora sau ce informații cauți..."
                         rows={5}
                         className={cn('form-input resize-none', errors.message && 'border-red-500/60 focus:border-red-500')}
                         required

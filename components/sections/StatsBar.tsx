@@ -31,7 +31,7 @@ const stats = [
   },
   {
     icon: Users,
-    value: 'Open',
+    value: 'Deschise',
     label: 'Înscrieri deschise',
     description: 'Primim membri fondatori acum',
     color: 'text-emerald-400',
