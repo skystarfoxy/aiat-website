@@ -3,38 +3,31 @@ import { FileText, Type, Users, Calendar, Briefcase } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function AdminDashboard() {
-  const supabase = createClient()
+  let postsCount: number | null = null
+  let contentCount: number | null = null
+  let teamCount: number | null = null
+  let eventsCount: number | null = null
+  let projectsCount: number | null = null
 
-  if (!supabase) {
-    return (
-      <div className="bg-white p-8 rounded-2xl border border-red-100 shadow-sm text-center">
-        <h1 className="font-syne font-700 text-2xl text-text-primary mb-4">Eroare de configurare</h1>
-        <p className="text-text-secondary font-grotesk">
-          Serviciul Supabase nu este configurat corect. Vă rugăm să verificați variabilele de mediu.
-        </p>
-      </div>
-    )
+  try {
+    const supabase = createClient()
+    if (supabase) {
+      const [p, c, t, e, pr] = await Promise.all([
+        supabase.from('posts').select('*', { count: 'exact', head: true }),
+        supabase.from('site_content').select('*', { count: 'exact', head: true }),
+        supabase.from('team_members').select('*', { count: 'exact', head: true }),
+        supabase.from('events').select('*', { count: 'exact', head: true }),
+        supabase.from('projects').select('*', { count: 'exact', head: true }),
+      ])
+      postsCount = p.count
+      contentCount = c.count
+      teamCount = t.count
+      eventsCount = e.count
+      projectsCount = pr.count
+    }
+  } catch (err) {
+    console.error('AdminDashboard fetch error:', err)
   }
-
-  const { count: postsCount } = await supabase
-    .from('posts')
-    .select('*', { count: 'exact', head: true })
-
-  const { count: contentCount } = await supabase
-    .from('site_content')
-    .select('*', { count: 'exact', head: true })
-
-  const { count: teamCount } = await supabase
-    .from('team_members')
-    .select('*', { count: 'exact', head: true })
-
-  const { count: eventsCount } = await supabase
-    .from('events')
-    .select('*', { count: 'exact', head: true })
-
-  const { count: projectsCount } = await supabase
-    .from('projects')
-    .select('*', { count: 'exact', head: true })
 
   return (
     <div>
