@@ -31,7 +31,10 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="font-syne font-700 text-3xl text-text-primary mb-8">Bun venit în administrare</h1>
+      <h1 className="font-syne font-700 text-3xl text-text-primary mb-8">
+        Bun venit în administrare
+        <span className="text-xs font-normal text-muted ml-4 opacity-50 block md:inline">(Actualizat: 14:55)</span>
+      </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Posts Stat Card */}
