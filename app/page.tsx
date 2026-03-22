@@ -6,22 +6,30 @@ import { Projects } from '@/components/sections/Projects';
 import { Events } from '@/components/sections/Events';
 import { Team } from '@/components/sections/Team';
 import { Contact } from '@/components/sections/Contact';
-// import { getSiteContent } from '@/lib/getContent'
-// import { createClient } from '@/lib/supabase/server'
+import { getSiteContent } from '@/lib/getContent'
+import { createClient } from '@/lib/supabase/server'
 
-/**
- * Homepage — AI Transilvania main landing page
- * Fetching dynamic content from Supabase.
- */
 export default async function HomePage() {
-  // SAFE MODE: Dezactivăm Supabase pentru a diagnostica 503
-  // Folosim doar conținutul static (fallback-uri)
-  const teamMembers: any[] = []
-  const eventsList: any[] = []
-  const projectsList: any[] = []
-  const content: Record<string, string> = {}
+  let teamMembers: any[] = []
+  let eventsList: any[] = []
+  let projectsList: any[] = []
+  let content: Record<string, string> = {}
 
-  // Fallbacks pentru texte (dacă baza de date e inaccesibilă)
+  try {
+    const supabase = createClient()
+    if (supabase) {
+      content = await getSiteContent()
+      const { data: team } = await supabase.from('team_members').select('*').order('order_index', { ascending: true })
+      if (team) teamMembers = team
+      const { data: events } = await supabase.from('events').select('*').order('date_value', { ascending: false })
+      if (events) eventsList = events
+      const { data: projects } = await supabase.from('projects').select('*').order('order_index', { ascending: true })
+      if (projects) projectsList = projects
+    }
+  } catch (err) {
+    console.error('HomePage data fetch error:', err)
+  }
+
   const hero_title = content['hero_title'] || 'Inteligență Artificială pentru Transilvania'
   const hero_subtitle = content['hero_subtitle'] || 'Cercetare, educație și inovație din inima României spre orizontul european.'
   const about_title = content['about_title'] || 'Despre AI Transilvania'
@@ -40,3 +48,4 @@ export default async function HomePage() {
     </main>
   );
 }
+
