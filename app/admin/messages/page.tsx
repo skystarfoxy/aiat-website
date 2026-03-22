@@ -6,13 +6,22 @@ export default async function MessagesPage() {
   const supabase = createClient()
   let messages: any[] = []
 
-  if (supabase) {
-    const { data } = await supabase
-      .from('contact_messages')
-      .select('*')
-      .order('created_at', { ascending: false })
-    if (data) messages = data
+  if (!supabase) {
+    return (
+      <div className="bg-white p-8 rounded-2xl border border-red-100 shadow-sm text-center">
+        <h1 className="font-syne font-700 text-2xl text-text-primary mb-4">Eroare de configurare</h1>
+        <p className="text-text-secondary font-grotesk">
+          Serviciul Supabase nu este configurat corect. Vă rugăm să verificați variabilele de mediu.
+        </p>
+      </div>
+    )
   }
+
+  const { data } = await supabase
+    .from('contact_messages')
+    .select('*')
+    .order('created_at', { ascending: false })
+  if (data) messages = data
 
   return (
     <div className="space-y-6">

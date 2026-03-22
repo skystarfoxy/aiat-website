@@ -7,6 +7,17 @@ import { DeleteButton } from '@/components/admin/DeleteButton'
 export default async function EventsPage() {
   const supabase = createClient()
 
+  if (!supabase) {
+    return (
+      <div className="bg-white p-8 rounded-2xl border border-red-100 shadow-sm text-center">
+        <h1 className="font-syne font-700 text-2xl text-text-primary mb-4">Eroare de configurare</h1>
+        <p className="text-text-secondary font-grotesk">
+          Serviciul Supabase nu este configurat corect. Vă rugăm să verificați variabilele de mediu.
+        </p>
+      </div>
+    )
+  }
+
   const { data: events, error } = await supabase
     .from('events')
     .select('*')
