@@ -6,8 +6,8 @@ import { Projects } from '@/components/sections/Projects';
 import { Events } from '@/components/sections/Events';
 import { Team } from '@/components/sections/Team';
 import { Contact } from '@/components/sections/Contact';
-import { getSiteContent } from '@/lib/getContent'
-import { createClient } from '@/lib/supabase/server'
+// import { getSiteContent } from '@/lib/getContent'
+// import { createClient } from '@/lib/supabase/server'
 
 /**
  * Homepage — AI Transilvania main landing page
