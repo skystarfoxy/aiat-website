@@ -16,27 +16,10 @@ import { createClient } from '@/lib/supabase/server'
 export default async function HomePage() {
   // SAFE MODE: Dezactivăm Supabase pentru a diagnostica 503
   // Folosim doar conținutul static (fallback-uri)
-  let teamMembers: any[] = []
-  let eventsList: any[] = []
-  let projectsList: any[] = []
-  let content: Record<string, string> = {}
-
-  // try {
-  //   const supabase = createClient()
-    
-  //   if (supabase) {
-  //     // Încercăm să luăm conținutul paginii
-  //     content = await getSiteContent()
-      
-
-      const { data: projects } = await supabase.from('projects').select('*').order('order_index', { ascending: true })
-      if (projects) projectsList = projects
-    } else {
-      console.warn('Supabase client unavailable. Using fallbacks.')
-    }
-  } catch (err) {
-    console.error('Data fetching skipped (expected if no DB connection):', err)
-  }
+  const teamMembers: any[] = []
+  const eventsList: any[] = []
+  const projectsList: any[] = []
+  const content: Record<string, string> = {}
 
   // Fallbacks pentru texte (dacă baza de date e inaccesibilă)
   const hero_title = content['hero_title'] || 'Inteligență Artificială pentru Transilvania'
