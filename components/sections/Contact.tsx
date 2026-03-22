@@ -54,11 +54,22 @@ export function Contact() {
 
     setFormState('sending');
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const { sendContactMessage } = await import('@/app/contact/actions');
+      const result = await sendContactMessage(form);
 
-    setFormState('sent');
-    setForm({ name: '', email: '', organization: '', reason: '', message: '' });
+      if (result.success) {
+        setFormState('sent');
+        setForm({ name: '', email: '', organization: '', reason: '', message: '' });
+      } else {
+        setFormState('error');
+        alert(result.error || 'A apărut o eroare.');
+      }
+    } catch (err) {
+      console.error('Contact form error:', err);
+      setFormState('error');
+      alert('A apărut o eroare la trimiterea mesajului.');
+    }
   };
 
   const handleChange = (
