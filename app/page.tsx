@@ -14,24 +14,20 @@ import { createClient } from '@/lib/supabase/server'
  * Fetching dynamic content from Supabase.
  */
 export default async function HomePage() {
+  // SAFE MODE: Dezactivăm Supabase pentru a diagnostica 503
+  // Folosim doar conținutul static (fallback-uri)
   let teamMembers: any[] = []
   let eventsList: any[] = []
   let projectsList: any[] = []
   let content: Record<string, string> = {}
 
-  try {
-    const supabase = createClient()
+  // try {
+  //   const supabase = createClient()
     
-    if (supabase) {
-      // Încercăm să luăm conținutul paginii
-      content = await getSiteContent()
+  //   if (supabase) {
+  //     // Încercăm să luăm conținutul paginii
+  //     content = await getSiteContent()
       
-      // Încercăm să luăm ceilalți membri (opțional)
-      const { data: team } = await supabase.from('team_members').select('*').order('order_index', { ascending: true })
-      if (team) teamMembers = team
-
-      const { data: events } = await supabase.from('events').select('*').order('date_value', { ascending: false })
-      if (events) eventsList = events
 
       const { data: projects } = await supabase.from('projects').select('*').order('order_index', { ascending: true })
       if (projects) projectsList = projects
