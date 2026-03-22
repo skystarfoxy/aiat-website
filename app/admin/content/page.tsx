@@ -3,24 +3,24 @@ import { updateSiteContent } from './actions'
 import { Save } from 'lucide-react'
 
 export default async function ContentEditorPage() {
-  const supabase = createClient()
+  let contentItems: any[] = []
+  let error: any = null
 
-  if (!supabase) {
-    return (
-      <div className="bg-white p-8 rounded-2xl border border-red-100 shadow-sm text-center">
-        <h1 className="font-syne font-700 text-2xl text-text-primary mb-4">Eroare de configurare</h1>
-        <p className="text-text-secondary font-grotesk">
-          Serviciul Supabase nu este configurat corect. Vă rugăm să verificați variabilele de mediu.
-        </p>
-      </div>
-    )
+  try {
+    const supabase = createClient()
+    if (supabase) {
+      const { data, error: fetchError } = await supabase
+        .from('site_content')
+        .select('*')
+        .order('section_key', { ascending: true })
+      
+      if (fetchError) error = fetchError
+      if (data) contentItems = data
+    }
+  } catch (err) {
+    console.error('Content items fetch error:', err)
   }
 
-  // Fetch all site content ordered by section key
-  const { data: contentItems, error } = await supabase
-    .from('site_content')
-    .select('*')
-    .order('section_key', { ascending: true })
 
   if (error) {
     return <div className="p-4 bg-red-50 text-red-600 rounded-lg">Eroare la încărcarea datelor: {error.message}</div>
