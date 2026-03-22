@@ -12,26 +12,28 @@ create table if not exists public.contact_messages (
   created_at timestamp with time zone default now()
 );
 
--- Activează securitatea (Row Level Security)
+-- Activează securitatea
 alter table public.contact_messages enable row level security;
 
--- Permite oricui să trimită mesaje (INSERT public)
--- Acest lucru este necesar pentru formularul de contact de pe site.
+-- Șterge politici vechi dacă există (pentru a evita erori la re-rulare)
+drop policy if exists "Anyone can insert contact messages." on public.contact_messages;
+drop policy if exists "Admins can view contact messages." on public.contact_messages;
+drop policy if exists "Admins can update contact messages." on public.contact_messages;
+drop policy if exists "Admins can delete contact messages." on public.contact_messages;
+
+-- Creare politici noi
 create policy "Anyone can insert contact messages." 
   on public.contact_messages for insert 
   with check ( true );
 
--- Permite doar administratorilor autentificați să vadă mesajele
 create policy "Admins can view contact messages." 
   on public.contact_messages for select 
   using ( auth.role() = 'authenticated' );
 
--- Permite administratorilor să marcheze ca citit (update)
 create policy "Admins can update contact messages." 
   on public.contact_messages for update 
   using ( auth.role() = 'authenticated' );
 
--- Permite administratorilor să șteargă mesaje
 create policy "Admins can delete contact messages." 
   on public.contact_messages for delete 
   using ( auth.role() = 'authenticated' );
