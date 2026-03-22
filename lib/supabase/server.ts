@@ -3,12 +3,10 @@ import { cookies } from 'next/headers'
 
 export function createClient() {
   try {
-    const cookieStore = cookies()
-
     let supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     let supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-    // Sanitizare: elimină ghilimelele și spațiile dacă utilizatorul le-a pus din greșeală în Hostinger
+    // Sanitizare: elimină ghilimelele și spațiile
     if (supabaseUrl) {
       supabaseUrl = supabaseUrl.trim().replace(/^["']|["']$/g, '')
     }
@@ -27,18 +25,22 @@ export function createClient() {
       {
         cookies: {
           get(name: string) {
-            return cookieStore.get(name)?.value
+            try {
+              return cookies().get(name)?.value
+            } catch (e) {
+              return undefined
+            }
           },
           set(name: string, value: string, options: CookieOptions) {
             try {
-              cookieStore.set({ name, value, ...options })
+              cookies().set({ name, value, ...options })
             } catch (error) {
               // Ignore server component set errors
             }
           },
           remove(name: string, options: CookieOptions) {
             try {
-              cookieStore.set({ name, value: '', ...options })
+              cookies().set({ name, value: '', ...options })
             } catch (error) {
               // Ignore server component delete errors
             }
