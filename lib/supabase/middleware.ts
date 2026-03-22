@@ -6,8 +6,16 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  let supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  let supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  // Sanitizare: elimină ghilimelele și spațiile
+  if (supabaseUrl) {
+    supabaseUrl = supabaseUrl.trim().replace(/^["']|["']$/g, '')
+  }
+  if (supabaseAnonKey) {
+    supabaseAnonKey = supabaseAnonKey.trim().replace(/^["']|["']$/g, '')
+  }
 
   if (!supabaseUrl || !supabaseAnonKey) {
     return supabaseResponse
