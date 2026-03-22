@@ -12,14 +12,27 @@ export function Events({ events }: { events?: any[] }) {
 
   if (!events || events.length === 0) return null;
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      setSubscribed(true);
-      setTimeout(() => setSubscribed(false), 3000);
-      setEmail('');
+      try {
+        const { subscribeToNewsletter } = await import('@/app/newsletter/actions');
+        const result = await subscribeToNewsletter(email);
+        
+        if (result.success) {
+          setSubscribed(true);
+          setTimeout(() => setSubscribed(false), 5000);
+          setEmail('');
+        } else {
+          alert(result.error || 'A apărut o eroare la abonare.');
+        }
+      } catch (err) {
+        console.error('Newsletter error:', err);
+        alert('Serviciul de newsletter este momentan indisponibil.');
+      }
     }
   };
+
 
   return (
     <section id="evenimente" className="py-16 bg-white relative overflow-hidden">

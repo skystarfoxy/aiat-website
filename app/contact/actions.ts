@@ -57,6 +57,6 @@ export async function sendContactMessage(formData: {
     // Nu întrerupem procesul dacă e-mailul eșuează după salvarea în DB
   }
   
-  revalidatePath('/admin/content')
+  revalidatePath('/admin/messages')
   return { success: true }
 }
