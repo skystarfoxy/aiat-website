@@ -19,7 +19,7 @@ export default async function MessagesPage() {
     console.error('Messages fetch error:', err)
   }
 
-  if (data) messages = data
+
 
   return (
     <div className="space-y-6">
